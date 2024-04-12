@@ -135,7 +135,7 @@ namespace Asjc.Collections.Extended
         {
             get
             {
-                if (null == List)
+                if (null == _list)
                 {
                     _list = new List<KeyValuePair<TKey, TValue>>(_initialCapacity);
                 }
