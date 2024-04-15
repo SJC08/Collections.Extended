@@ -54,15 +54,13 @@ namespace Asjc.Collections.Extended
 
         public void Add(TKey key, TValue value)
         {
-            // Add it in the dictionary first, because it throws an exception if repeated.
-            dictionary.Add(key, value);
+            dictionary.Add(key, value); // Throws an exception when the key is duplicated.
             list.Add(new KeyValuePair<TKey, TValue>(key, value));
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
         {
-            // Add it in the dictionary first, because it throws an exception if repeated.
-            dictionary.Add(item.Key, item.Value);
+            dictionary.Add(item.Key, item.Value); // Throws an exception when the key is duplicated.
             list.Add(item);
         }
 
@@ -88,8 +86,7 @@ namespace Asjc.Collections.Extended
 
         public void Insert(int index, KeyValuePair<TKey, TValue> item)
         {
-            // Insert it into the list first, because it throws an exception if out of range.
-            list.Insert(index, item);
+            list.Insert(index, item); // Throws an exception when out of range.
             dictionary.Add(item.Key, item.Value);
         }
 
@@ -111,9 +108,9 @@ namespace Asjc.Collections.Extended
 
         public void RemoveAt(int index)
         {
-            // Remove it from the list first, because it throws an exception if out of range.
+            var item = list[index]; // Throws an exception when out of range.
             list.RemoveAt(index);
-            dictionary.Remove(list[index].Key);
+            dictionary.Remove(item.Key);
         }
 
         public bool TryGetValue(TKey key, out TValue value) => dictionary.TryGetValue(key, out value);

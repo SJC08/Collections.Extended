@@ -3,44 +3,76 @@
     [TestClass]
     public class ListDictionaryTests
     {
-        private readonly ListDictionary<int, string> ld = new()
+        public static ListDictionary<string, string> LD => new()
         {
-            { 0, "ABC" },
-            { 1, "DEF" }
+            { "A", "AAA" },
+            { "B", "BBB" },
+            { "C", "CCC" }
         };
 
         [TestMethod]
         public void CountConsistency()
         {
-            bool equal = ld.Count == ld.Keys.Count &&
-                         ld.Count == ld.Values.Count &&
-                         ld.Count == ld.OrderedKeys.Count &&
-                         ld.Count == ld.OrderedValues.Count;
+            bool equal = LD.Count == LD.Keys.Count &&
+                         LD.Count == LD.Values.Count &&
+                         LD.Count == LD.OrderedKeys.Count &&
+                         LD.Count == LD.OrderedValues.Count;
             Assert.IsTrue(equal);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Add1_DuplicateKey_ThrowsArgumentException() => ld.Add(0, "XYZ");
+        public void Add1_DuplicateKey_ThrowsArgumentException() => LD.Add("A", "ZZZ");
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Add2_DuplicateKey_ThrowsArgumentException() => ld.Add(new(1, "XYZ"));
+        public void Add2_DuplicateKey_ThrowsArgumentException() => LD.Add(new("A", "ZZZ"));
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Insert_IndexLessThanZero_ThrowsArgumentOutOfRangeException() => ld.Insert(-1, new(2, "XYZ"));
+        public void Insert_IndexLessThanZero_ThrowsArgumentOutOfRangeException() => LD.Insert(-1, new("D", "ZZZ"));
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Insert_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException() => ld.Insert(ld.Count + 1, new(2, "XYZ"));
+        public void Insert_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException() => LD.Insert(LD.Count + 1, new("D", "ZZZ"));
+
+        [TestMethod]
+        public void Remove1()
+        {
+            var ld = LD;
+            ld.Remove("B");
+            Assert.IsFalse(ld.Keys.Contains("B"));
+            Assert.IsFalse(ld.OrderedKeys.Contains("B"));
+            Assert.IsFalse(ld.Values.Contains("BBB"));
+            Assert.IsFalse(ld.OrderedValues.Contains("BBB"));
+        }
+
+        [TestMethod]
+        public void Remove2()
+        {
+            var ld = LD;
+            ld.Remove(new KeyValuePair<string, string>("B", "BBB"));
+            Assert.IsFalse(ld.Keys.Contains("B"));
+            Assert.IsFalse(ld.OrderedKeys.Contains("B"));
+            Assert.IsFalse(ld.Values.Contains("BBB"));
+            Assert.IsFalse(ld.OrderedValues.Contains("BBB"));
+        }
+
+        [TestMethod]
+        public void RemoveAt()
+        {
+            var ld = LD;
+            ld.RemoveAt(0);
+            Assert.IsTrue(ld.Keys.SequenceEqual(ld.OrderedKeys));
+            Assert.IsTrue(ld.Values.SequenceEqual(ld.OrderedValues));
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void RemoveAt_IndexLessThanZero_ThrowsArgumentOutOfRangeException() => ld.RemoveAt(-1);
+        public void RemoveAt_IndexLessThanZero_ThrowsArgumentOutOfRangeException() => LD.RemoveAt(-1);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void RemoveAt_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException() => ld.RemoveAt(ld.Count + 1);
+        public void RemoveAt_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException() => LD.RemoveAt(LD.Count + 1);
     }
 }
