@@ -1,4 +1,6 @@
-﻿namespace Asjc.Collections.Extended.Tests
+﻿using Asjc.Extensions;
+
+namespace Asjc.Collections.Extended.Tests
 {
     [TestClass]
     public class ListDictionaryTests
@@ -10,31 +12,48 @@
             { "C", "CCC" }
         };
 
-        [TestMethod]
-        public void CountConsistency()
+        public void Validate(ListDictionary<string, string> ld)
         {
-            bool equal = LD.Count == LD.Keys.Count &&
-                         LD.Count == LD.Values.Count &&
-                         LD.Count == LD.OrderedKeys.Count &&
-                         LD.Count == LD.OrderedValues.Count;
-            Assert.IsTrue(equal);
+            Assert.IsTrue(ld.Keys.ContentEqual(ld.OrderedKeys));
+            Assert.IsTrue(ld.Values.ContentEqual(ld.OrderedValues));
+            Assert.IsTrue(ld.Count == ld.Keys.Count && ld.Count == ld.Values.Count);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Add1_DuplicateKey_ThrowsArgumentException() => LD.Add("A", "ZZZ");
+        public void Add1_DuplicateKey_ThrowsArgumentException()
+        {
+            var ld = LD;
+            var a = () => ld.Add("A", "ZZZ");
+            Assert.ThrowsException<ArgumentException>(a);
+            Validate(ld);
+        }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Add2_DuplicateKey_ThrowsArgumentException() => LD.Add(new("A", "ZZZ"));
+        public void Add2_DuplicateKey_ThrowsArgumentException()
+        {
+            var ld = LD;
+            var a = () => ld.Add(new("A", "ZZZ"));
+            Assert.ThrowsException<ArgumentException>(a);
+            Validate(ld);
+        }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Insert_IndexLessThanZero_ThrowsArgumentOutOfRangeException() => LD.Insert(-1, new("D", "ZZZ"));
+        public void Insert_IndexLessThanZero_ThrowsArgumentOutOfRangeException()
+        {
+            var ld = LD;
+            var a = () => ld.Insert(-1, new("D", "ZZZ"));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(a);
+            Validate(ld);
+        }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Insert_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException() => LD.Insert(LD.Count + 1, new("D", "ZZZ"));
+        public void Insert_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException()
+        {
+            var ld = LD;
+            var a = () => ld.Insert(ld.Count + 1, new("D", "ZZZ"));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(a);
+            Validate(ld);
+        }
 
         [TestMethod]
         public void Remove1()
@@ -42,9 +61,8 @@
             var ld = LD;
             ld.Remove("B");
             Assert.IsFalse(ld.Keys.Contains("B"));
-            Assert.IsFalse(ld.OrderedKeys.Contains("B"));
             Assert.IsFalse(ld.Values.Contains("BBB"));
-            Assert.IsFalse(ld.OrderedValues.Contains("BBB"));
+            Validate(ld);
         }
 
         [TestMethod]
@@ -53,9 +71,8 @@
             var ld = LD;
             ld.Remove(new KeyValuePair<string, string>("B", "BBB"));
             Assert.IsFalse(ld.Keys.Contains("B"));
-            Assert.IsFalse(ld.OrderedKeys.Contains("B"));
             Assert.IsFalse(ld.Values.Contains("BBB"));
-            Assert.IsFalse(ld.OrderedValues.Contains("BBB"));
+            Validate(ld);
         }
 
         [TestMethod]
@@ -63,16 +80,25 @@
         {
             var ld = LD;
             ld.RemoveAt(0);
-            Assert.IsTrue(ld.Keys.SequenceEqual(ld.OrderedKeys));
-            Assert.IsTrue(ld.Values.SequenceEqual(ld.OrderedValues));
+            Validate(ld);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void RemoveAt_IndexLessThanZero_ThrowsArgumentOutOfRangeException() => LD.RemoveAt(-1);
+        public void RemoveAt_IndexLessThanZero_ThrowsArgumentOutOfRangeException()
+        {
+            var ld = LD;
+            var a = () => ld.RemoveAt(-1);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(a);
+            Validate(ld);
+        }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void RemoveAt_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException() => LD.RemoveAt(LD.Count + 1);
+        public void RemoveAt_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException()
+        {
+            var ld = LD;
+            var a = () => ld.RemoveAt(ld.Count + 1);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(a);
+            Validate(ld);
+        }
     }
 }

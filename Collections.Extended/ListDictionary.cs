@@ -80,8 +80,6 @@ namespace Asjc.Collections.Extended
 
         public int IndexOf(TKey item) => list.FindIndex(kvp => kvp.Key.Equals(item));
 
-        public int IndexOf(TValue item) => list.FindIndex(kvp => kvp.Value.Equals(item));
-
         public int IndexOf(KeyValuePair<TKey, TValue> item) => list.IndexOf(item);
 
         public void Insert(int index, KeyValuePair<TKey, TValue> item)
