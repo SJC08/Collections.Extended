@@ -113,6 +113,6 @@ namespace Asjc.Collections.Extended
 
         public bool TryGetValue(TKey key, out TValue value) => dictionary.TryGetValue(key, out value);
 
-        IEnumerator IEnumerable.GetEnumerator() => list.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
