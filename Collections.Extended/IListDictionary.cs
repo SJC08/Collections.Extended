@@ -8,6 +8,6 @@ namespace Asjc.Collections.Extended
 
         List<TValue> OrderedValues { get; }
 
-        int IndexOf(TKey item);
+        int IndexOf(TKey key);
     }
 }

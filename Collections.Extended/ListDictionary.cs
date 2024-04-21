@@ -78,7 +78,7 @@ namespace Asjc.Collections.Extended
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => list.GetEnumerator();
 
-        public int IndexOf(TKey item) => list.FindIndex(kvp => kvp.Key.Equals(item));
+        public int IndexOf(TKey key) => OrderedKeys.IndexOf(key);
 
         public int IndexOf(KeyValuePair<TKey, TValue> item) => list.IndexOf(item);
 
