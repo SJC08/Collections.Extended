@@ -17,6 +17,7 @@ namespace Asjc.Collections.Extended.Tests
             Assert.IsTrue(ld.Keys.ContentEqual(ld.OrderedKeys));
             Assert.IsTrue(ld.Values.ContentEqual(ld.OrderedValues));
             Assert.IsTrue(ld.Count == ld.Keys.Count && ld.Count == ld.Values.Count);
+            Assert.IsFalse(ld.Keys.HasDuplicates());
         }
 
         [TestMethod]
@@ -36,6 +37,16 @@ namespace Asjc.Collections.Extended.Tests
             {
                 void a() => ld.Add(new("A", "ZZZ"));
                 Assert.ThrowsException<ArgumentException>(a);
+            });
+        }
+
+        [TestMethod]
+        public void IndexOf1()
+        {
+            RunTest(ld =>
+            {
+                int i = ld.IndexOf("B");
+                Assert.AreEqual(ld[i].Value, "BBB");
             });
         }
 
