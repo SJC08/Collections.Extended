@@ -41,16 +41,6 @@ namespace Asjc.Collections.Extended.Tests
         }
 
         [TestMethod]
-        public void IndexOf1()
-        {
-            RunTest(ld =>
-            {
-                int i = ld.IndexOf("B");
-                Assert.AreEqual(ld[i].Value, "BBB");
-            });
-        }
-
-        [TestMethod]
         public void Insert_IndexLessThanZero_ThrowsArgumentOutOfRangeException()
         {
             RunTest(ld =>

@@ -30,7 +30,7 @@ namespace Asjc.Collections.Extended
                 if (ContainsKey(key))
                 {
                     dictionary[key] = value;
-                    list[IndexOf(key)] = new KeyValuePair<TKey, TValue>(key, value);
+                    list[OrderedKeys.IndexOf(key)] = new KeyValuePair<TKey, TValue>(key, value);
                 }
                 else
                 {
@@ -78,8 +78,6 @@ namespace Asjc.Collections.Extended
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => list.GetEnumerator();
 
-        public int IndexOf(TKey key) => OrderedKeys.IndexOf(key);
-
         public int IndexOf(KeyValuePair<TKey, TValue> item) => list.IndexOf(item);
 
         public void Insert(int index, KeyValuePair<TKey, TValue> item)
@@ -92,7 +90,7 @@ namespace Asjc.Collections.Extended
         {
             bool found = dictionary.Remove(key);
             if (found)
-                list.RemoveAt(IndexOf(key));
+                list.RemoveAt(OrderedKeys.IndexOf(key));
             return found;
         }
 

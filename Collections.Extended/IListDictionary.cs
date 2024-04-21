@@ -7,7 +7,5 @@ namespace Asjc.Collections.Extended
         List<TKey> OrderedKeys { get; }
 
         List<TValue> OrderedValues { get; }
-
-        int IndexOf(TKey key);
     }
 }
