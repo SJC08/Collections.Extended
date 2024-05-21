@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Asjc.Collections.Extended
 {
-    public class ListDictionary<TKey, TValue> : IListDictionary<TKey, TValue>
+    public class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue>
     {
         private readonly List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
         private readonly Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();

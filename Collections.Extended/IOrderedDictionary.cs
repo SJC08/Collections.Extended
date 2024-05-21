@@ -2,7 +2,7 @@
 
 namespace Asjc.Collections.Extended
 {
-    public interface IListDictionary<TKey, TValue> : IList<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
+    public interface IOrderedDictionary<TKey, TValue> : IList<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
     {
         List<TKey> OrderedKeys { get; }
 

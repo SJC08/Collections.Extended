@@ -3,11 +3,11 @@
 namespace Asjc.Collections.Extended.Tests
 {
     [TestClass]
-    public class ListDictionaryTests
+    public class OrderedDictionaryTests
     {
-        public static void RunTest(Action<ListDictionary<string, string>> action)
+        public static void RunTest(Action<OrderedDictionary<string, string>> action)
         {
-            ListDictionary<string, string> ld = new()
+            OrderedDictionary<string, string> ld = new()
             {
                 { "A", "AAA" },
                 { "B", "BBB" },
