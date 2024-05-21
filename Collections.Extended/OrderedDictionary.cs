@@ -7,8 +7,8 @@ namespace Asjc.Collections.Extended
 {
     public class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue>
     {
-        private readonly List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
         private readonly Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
+        private readonly List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
 
         public KeyValuePair<TKey, TValue> this[int index]
         {
