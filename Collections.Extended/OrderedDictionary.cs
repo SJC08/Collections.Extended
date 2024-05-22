@@ -112,5 +112,8 @@ namespace Asjc.Collections.Extended
         public bool TryGetValue(TKey key, out TValue value) => dictionary.TryGetValue(key, out value);
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public static implicit operator Dictionary<TKey, TValue>(OrderedDictionary<TKey, TValue> od) => od.dictionary;
+        public static implicit operator List<KeyValuePair<TKey, TValue>>(OrderedDictionary<TKey, TValue> od) => od.list;
     }
 }

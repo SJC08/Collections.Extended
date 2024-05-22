@@ -7,25 +7,25 @@ namespace Asjc.Collections.Extended.Tests
     {
         public static void RunTest(Action<OrderedDictionary<string, string>> action)
         {
-            OrderedDictionary<string, string> ld = new()
+            OrderedDictionary<string, string> od = new()
             {
                 { "A", "AAA" },
                 { "B", "BBB" },
                 { "C", "CCC" }
             };
-            action(ld);
-            Assert.IsTrue(ld.Keys.ContentEqual(ld.OrderedKeys));
-            Assert.IsTrue(ld.Values.ContentEqual(ld.OrderedValues));
-            Assert.IsTrue(ld.Count == ld.Keys.Count && ld.Count == ld.Values.Count);
-            Assert.IsFalse(ld.Keys.HasDuplicates());
+            action(od);
+            Assert.IsTrue(od.Keys.ContentEqual(od.OrderedKeys));
+            Assert.IsTrue(od.Values.ContentEqual(od.OrderedValues));
+            Assert.IsTrue(od.Count == od.Keys.Count && od.Count == od.Values.Count);
+            Assert.IsFalse(od.Keys.HasDuplicates());
         }
 
         [TestMethod]
         public void Add1_DuplicateKey_ThrowsArgumentException()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                void a() => ld.Add("A", "ZZZ");
+                void a() => od.Add("A", "ZZZ");
                 Assert.ThrowsException<ArgumentException>(a);
             });
         }
@@ -33,9 +33,9 @@ namespace Asjc.Collections.Extended.Tests
         [TestMethod]
         public void Add2_DuplicateKey_ThrowsArgumentException()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                void a() => ld.Add(new("A", "ZZZ"));
+                void a() => od.Add(new("A", "ZZZ"));
                 Assert.ThrowsException<ArgumentException>(a);
             });
         }
@@ -43,9 +43,9 @@ namespace Asjc.Collections.Extended.Tests
         [TestMethod]
         public void Insert_IndexLessThanZero_ThrowsArgumentOutOfRangeException()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                void a() => ld.Insert(-1, new("D", "ZZZ"));
+                void a() => od.Insert(-1, new("D", "ZZZ"));
                 Assert.ThrowsException<ArgumentOutOfRangeException>(a);
             });
         }
@@ -53,9 +53,9 @@ namespace Asjc.Collections.Extended.Tests
         [TestMethod]
         public void Insert_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                void a() => ld.Insert(ld.Count + 1, new("D", "ZZZ"));
+                void a() => od.Insert(od.Count + 1, new("D", "ZZZ"));
                 Assert.ThrowsException<ArgumentOutOfRangeException>(a);
             });
         }
@@ -63,34 +63,34 @@ namespace Asjc.Collections.Extended.Tests
         [TestMethod]
         public void Remove1()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                ld.Remove("B");
-                Assert.IsFalse(ld.ContainsKey("B"));
-                Assert.IsFalse(ld.Values.Contains("BBB"));
+                od.Remove("B");
+                Assert.IsFalse(od.ContainsKey("B"));
+                Assert.IsFalse(od.Values.Contains("BBB"));
             });
         }
 
         [TestMethod]
         public void Remove2()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                ld.Remove(new KeyValuePair<string, string>("B", "BBB"));
-                Assert.IsFalse(ld.ContainsKey("B"));
-                Assert.IsFalse(ld.Values.Contains("BBB"));
+                od.Remove(new KeyValuePair<string, string>("B", "BBB"));
+                Assert.IsFalse(od.ContainsKey("B"));
+                Assert.IsFalse(od.Values.Contains("BBB"));
             });
         }
 
         [TestMethod]
-        public void RemoveAt() => RunTest(ld => ld.RemoveAt(0));
+        public void RemoveAt() => RunTest(od => od.RemoveAt(0));
 
         [TestMethod]
         public void RemoveAt_IndexLessThanZero_ThrowsArgumentOutOfRangeException()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                void a() => ld.RemoveAt(-1);
+                void a() => od.RemoveAt(-1);
                 Assert.ThrowsException<ArgumentOutOfRangeException>(a);
             });
         }
@@ -98,9 +98,9 @@ namespace Asjc.Collections.Extended.Tests
         [TestMethod]
         public void RemoveAt_IndexGreaterThanCount_ThrowsArgumentOutOfRangeException()
         {
-            RunTest(ld =>
+            RunTest(od =>
             {
-                void a() => ld.RemoveAt(ld.Count + 1);
+                void a() => od.RemoveAt(od.Count + 1);
                 Assert.ThrowsException<ArgumentOutOfRangeException>(a);
             });
         }

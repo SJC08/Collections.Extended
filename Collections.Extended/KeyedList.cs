@@ -4,9 +4,18 @@ using System.Collections.Generic;
 
 namespace Asjc.Collections.Extended
 {
+    public class KeyedList<T> : KeyedList<object, T>
+    {
+        public KeyedList() : this(k => k.GetType()) { } // To be determined.
+
+        public KeyedList(Func<T, object> keySelector) : base(keySelector) { }
+    }
+
     public class KeyedList<TKey, TValue> : IKeyedList<TKey, TValue>
     {
-        private OrderedDictionary<TKey, TValue> items = new OrderedDictionary<TKey, TValue>();
+        private readonly OrderedDictionary<TKey, TValue> items = new OrderedDictionary<TKey, TValue>();
+
+        public KeyedList(Func<TValue, TKey> keySelector) => KeySelector = keySelector;
 
         public TValue this[int index]
         {
@@ -20,7 +29,7 @@ namespace Asjc.Collections.Extended
             set => items[key] = value;
         }
 
-        public Func<TValue, TKey> KeySelector { get; set; }
+        public Func<TValue, TKey> KeySelector { get; }
 
         public int Count => items.Count;
 
@@ -67,5 +76,8 @@ namespace Asjc.Collections.Extended
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator() => items.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public static implicit operator List<TValue>(KeyedList<TKey, TValue> kl) => kl.items.OrderedValues;
+        public static implicit operator Dictionary<TKey, TValue>(KeyedList<TKey, TValue> kl) => kl.items;
     }
 }

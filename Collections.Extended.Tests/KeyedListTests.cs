@@ -7,13 +7,12 @@
         {
             get
             {
-                KeyedList<string, string> kl = new()
+                KeyedList<string, string> kl = new(v => v[..1])
                 {
                     { "A", "AAA" },
                     { "B", "BBB" },
                     { "C", "CCC" }
                 };
-                kl.KeySelector = v => v[..1];
                 return kl;
             }
         }
