@@ -10,6 +10,14 @@ namespace Asjc.Collections.Extended
         private readonly Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
         private readonly List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
 
+        public OrderedDictionary() { }
+
+        public OrderedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> pairs)
+        {
+            foreach (var item in pairs)
+                Add(item);
+        }
+
         public KeyValuePair<TKey, TValue> this[int index]
         {
             get => list[index];

@@ -7,11 +7,30 @@ namespace Asjc.Collections.Extended
     public class KeyedList<T> : KeyedList<object, T>
     {
         public KeyedList(Func<T, object> keySelector) : base(keySelector) { }
+
+        public KeyedList(Func<T, object> keySelector, IEnumerable<KeyValuePair<object, T>> pairs) : base(keySelector, pairs) { }
+
+        public KeyedList(Func<T, object> keySelector, IEnumerable<T> values) : base(keySelector, values) { }
     }
 
     public class KeyedList<TKey, TValue> : OrderedDictionary<TKey, TValue>, IKeyedList<TKey, TValue>
     {
-        public KeyedList(Func<TValue, TKey> keySelector) => KeySelector = keySelector;
+        public KeyedList(Func<TValue, TKey> keySelector)
+        {
+            KeySelector = keySelector;
+        }
+
+        public KeyedList(Func<TValue, TKey> keySelector, IEnumerable<KeyValuePair<TKey, TValue>> pairs) : base(pairs)
+        {
+            KeySelector = keySelector;
+        }
+
+        public KeyedList(Func<TValue, TKey> keySelector, IEnumerable<TValue> values)
+        {
+            KeySelector = keySelector;
+            foreach (var item in values)
+                Add(item);
+        }
 
         public new TValue this[int index]
         {
