@@ -13,5 +13,13 @@
             Assert.AreEqual(UTL.Get<double>(), 1.0);
             Assert.AreEqual(UTL.Get<float>(), 2.0f);
         }
+
+        [TestMethod]
+        public void Null()
+        {
+            var utl = UTL;
+            utl[typeof(string)] = null;
+            Assert.IsNull(utl.Get<string>());
+        }
     }
 }

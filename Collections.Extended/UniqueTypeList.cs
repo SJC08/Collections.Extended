@@ -8,6 +8,9 @@ namespace Asjc.Collections.Extended
     {
         public UniqueTypeList() : base(obj => obj.GetType()) { }
 
+        /// <summary>
+        /// Gets the element whose key is the type <typeparamref name="Type"/>.
+        /// </summary>
         public Type Get<Type>() where Type : T => (Type)this[typeof(Type)];
     }
 }
