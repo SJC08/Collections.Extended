@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,13 +17,15 @@ namespace Asjc.Collections.Extended
                 Add(item);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="KeyMismatchException"></exception>
         public KeyValuePair<TKey, TValue> this[int index]
         {
             get => list[index];
             set
             {
                 if (!list[index].Key.Equals(value.Key))
-                    throw new ArgumentException("The key of the specified index doesn't match the key of the given KeyValuePair.");
+                    throw new KeyMismatchException("The key at the specified index doesn't match the key of the given KeyValuePair.");
                 dictionary[value.Key] = value.Value;
                 list[index] = value;
             }
