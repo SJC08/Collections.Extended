@@ -17,16 +17,22 @@ namespace Asjc.Collections.Extended
                 Add(item);
         }
 
-        /// <inheritdoc />
-        /// <exception cref="KeyMismatchException"></exception>
         public KeyValuePair<TKey, TValue> this[int index]
         {
             get => list[index];
             set
             {
-                if (!list[index].Key.Equals(value.Key))
-                    throw new KeyMismatchException("The key at the specified index doesn't match the key of the given KeyValuePair.");
-                dictionary[value.Key] = value.Value;
+                var current = list[index].Key;
+                // For the dictionary, different cases are handled separately.
+                if (current.Equals(value.Key))
+                {
+                    dictionary[value.Key] = value.Value;
+                }
+                else
+                {
+                    dictionary.Add(value.Key, value.Value); // Throws an exception when the key is duplicated.
+                    dictionary.Remove(current); // Remove the original value.
+                }
                 list[index] = value;
             }
         }

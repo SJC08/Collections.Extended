@@ -21,6 +21,34 @@ namespace Asjc.Collections.Extended.Tests
         }
 
         [TestMethod]
+        public void Indexer1() => RunTest(od => Assert.AreEqual(od[0], new("A", "AAA")));
+
+        [TestMethod]
+        public void Indexer1_KeyNotMatched()
+        {
+            RunTest(od =>
+            {
+                od[0] = new("D", "DDD");
+                Assert.AreEqual(od[0], new("D", "DDD"));
+                Assert.AreEqual(od.Count, 3);
+                Assert.IsFalse(od.ContainsKey("A"));
+            });
+        }
+
+        [TestMethod]
+        public void Indexer1_DuplicateKey()
+        {
+            RunTest(od =>
+            {
+                void a() => od[0] = new("B", "BBB");
+                Assert.ThrowsException<ArgumentException>(a);
+            });
+        }
+
+        [TestMethod]
+        public void Indexer2() => RunTest(od => Assert.AreEqual(od["A"], "AAA"));
+
+        [TestMethod]
         public void Add1_DuplicateKey_ThrowsArgumentException()
         {
             RunTest(od =>

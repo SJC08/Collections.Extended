@@ -2,6 +2,8 @@
 
 namespace Asjc.Collections.Extended
 {
+    // A little bit different from System.Collections.Specialized.OrderedDictionary.
+    // I'm not sure if this is more appropriate.
     public interface IOrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IList<KeyValuePair<TKey, TValue>>
     {
         /// <summary>
