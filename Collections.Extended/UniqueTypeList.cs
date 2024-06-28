@@ -12,5 +12,10 @@ namespace Asjc.Collections.Extended
         /// Gets the element whose key is the type <typeparamref name="Type"/>.
         /// </summary>
         public Type Get<Type>() where Type : T => (Type)this[typeof(Type)];
+
+        /// <summary>
+        /// Sets the element whose key is the type <typeparamref name="Type"/>.
+        /// </summary>
+        public void Set<Type>(Type value) where Type : T => this[typeof(Type)] = value;
     }
 }
