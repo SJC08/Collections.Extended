@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Asjc.Collections.Extended
 {
-    public class KeyedList<T> : KeyedList<object, T>
+    public class KeyedList<TValue> : KeyedList<object, TValue>
     {
-        public KeyedList(Func<T, object> keySelector) : base(keySelector) { }
+        public KeyedList(Func<TValue, object> keySelector) : base(keySelector) { }
 
-        public KeyedList(Func<T, object> keySelector, IEnumerable<KeyValuePair<object, T>> pairs) : base(keySelector, pairs) { }
+        public KeyedList(Func<TValue, object> keySelector, IEnumerable<KeyValuePair<object, TValue>> pairs) : base(keySelector, pairs) { }
 
-        public KeyedList(Func<T, object> keySelector, IEnumerable<T> values) : base(keySelector, values) { }
+        public KeyedList(Func<TValue, object> keySelector, IEnumerable<TValue> values) : base(keySelector, values) { }
     }
 
     public class KeyedList<TKey, TValue> : OrderedDictionary<TKey, TValue>, IKeyedList<TKey, TValue>
