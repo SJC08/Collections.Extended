@@ -1,10 +1,17 @@
-﻿namespace Asjc.Collections.Extended
+﻿using System;
+using System.Collections.Generic;
+
+namespace Asjc.Collections.Extended
 {
     public class UniqueTypeList : UniqueTypeList<object> { }
 
-    public class UniqueTypeList<BaseType> : KeyedList<System.Type, BaseType>
+    public class UniqueTypeList<BaseType> : KeyedList<Type, BaseType>
     {
         public UniqueTypeList() : base(obj => obj.GetType()) { }
+
+        public UniqueTypeList(IEnumerable<KeyValuePair<Type, BaseType>> pairs) : base(obj => obj.GetType(), pairs) { }
+
+        public UniqueTypeList(IEnumerable<BaseType> values) : base(obj => obj.GetType(), values) { }
 
         /// <summary>
         /// Gets the element whose key is the type <typeparamref name="Type"/>.
