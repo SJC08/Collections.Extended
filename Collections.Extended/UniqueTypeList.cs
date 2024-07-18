@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Asjc.Collections.Extended
+﻿namespace Asjc.Collections.Extended
 {
     public class UniqueTypeList : UniqueTypeList<object> { }
 
@@ -15,8 +13,7 @@ namespace Asjc.Collections.Extended
         /// <summary>
         /// Gets the element whose key is the type <typeparamref name="T"/>.
         /// </summary>
-        [return: MaybeNull]
-        public T Get<T>() where T : TBase => (T?)this[typeof(T)];
+        public T? Get<T>() where T : TBase => (T?)this[typeof(T)];
 
         /// <summary>
         /// Sets the element whose key is the type <typeparamref name="T"/>.
