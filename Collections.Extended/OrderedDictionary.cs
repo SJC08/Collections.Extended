@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Asjc.Collections.Extended
 {
-    public class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue>
+    public class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue> where TKey : notnull
     {
-        private readonly Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
-        private readonly List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
+        private readonly Dictionary<TKey, TValue> dictionary = [];
+        private readonly List<KeyValuePair<TKey, TValue>> list = [];
 
         public OrderedDictionary() { }
 
@@ -129,6 +127,7 @@ namespace Asjc.Collections.Extended
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public static implicit operator Dictionary<TKey, TValue>(OrderedDictionary<TKey, TValue> od) => od.dictionary;
+
         public static implicit operator List<KeyValuePair<TKey, TValue>>(OrderedDictionary<TKey, TValue> od) => od.list;
     }
 }

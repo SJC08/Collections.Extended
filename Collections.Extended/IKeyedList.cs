@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Asjc.Collections.Extended
+﻿namespace Asjc.Collections.Extended
 {
     public interface IKeyedList<TKey, TValue> : IList<TValue>, IDictionary<TKey, TValue>
     {
