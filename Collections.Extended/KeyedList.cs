@@ -54,6 +54,9 @@ namespace Asjc.Collections.Extended
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        /// <summary>
+        /// Converts the specified <see cref="KeyedList{TKey, TValue}"/> to a <see cref="List{T}"/>.
+        /// </summary>
         public static implicit operator List<TValue>(KeyedList<TKey, TValue> kl) => kl.OrderedValues;
     }
 }
