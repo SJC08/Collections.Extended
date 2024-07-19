@@ -2,13 +2,24 @@
 
 namespace Asjc.Collections.Extended
 {
+    /// <summary>
+    /// Represents a generic collection of key/value pairs that are ordered.
+    /// </summary>
+    /// <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
+    /// <typeparam name="TValue">The type of values in the dictionary.</typeparam>
     public class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue> where TKey : notnull
     {
         private readonly Dictionary<TKey, TValue> dictionary = [];
         private readonly List<KeyValuePair<TKey, TValue>> list = [];
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class.
+        /// </summary>
         public OrderedDictionary() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class that contains elements copied from the specified <see cref="IEnumerable{T}"/>.
+        /// </summary>
         public OrderedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> pairs)
         {
             foreach (var item in pairs)
@@ -53,13 +64,35 @@ namespace Asjc.Collections.Extended
             }
         }
 
+        /// <summary>
+        /// Gets an <see cref="ICollection{T}"/> containing the keys in the <see cref="OrderedDictionary{TKey, TValue}"/>.
+        /// </summary>
         public ICollection<TKey> Keys => dictionary.Keys;
 
+        /// <summary>
+        /// Gets an <see cref="List{T}"/> containing the ordered keys in the <see cref="OrderedDictionary{TKey, TValue}"/>.
+        /// </summary>
+        /// <remarks>
+        /// The returned <see cref="List{T}"/> is a copy of the keys in the original dictionary.
+        /// </remarks>
         public List<TKey> OrderedKeys => list.Select(kvp => kvp.Key).ToList();
 
+        IList<TKey> IOrderedDictionary<TKey, TValue>.OrderedKeys => OrderedKeys;
+
+        /// <summary>
+        /// Gets an <see cref="ICollection{T}"/> containing the values in the <see cref="OrderedDictionary{TKey, TValue}"/>.
+        /// </summary>
         public ICollection<TValue> Values => dictionary.Values;
 
+        /// <summary>
+        /// Gets an <see cref="List{T}"/> containing the ordered values in the <see cref="OrderedDictionary{TKey, TValue}"/>.
+        /// </summary>
+        /// <remarks>
+        /// The returned <see cref="List{T}"/> is a copy of the values in the original dictionary.
+        /// </remarks>
         public List<TValue> OrderedValues => list.Select(kvp => kvp.Value).ToList();
+
+        IList<TValue> IOrderedDictionary<TKey, TValue>.OrderedValues => OrderedValues;
 
         public int Count => list.Count;
 
@@ -83,8 +116,18 @@ namespace Asjc.Collections.Extended
             list.Clear();
         }
 
+        /// <summary>
+        /// Determines whether the <see cref="OrderedDictionary{TKey, TValue}"/> contains a specific key and value.
+        /// </summary>
+        /// <param name="item">The <see cref="KeyValuePair{TKey, TValue}"/> to locate in the <see cref="OrderedDictionary{TKey, TValue}"/>.</param>
+        /// <returns><see langword="true"/> if <paramref name="item"/> is found in the <see cref="OrderedDictionary{TKey, TValue}"/>; otherwise, <see langword="false"/>.</returns>
         public bool Contains(KeyValuePair<TKey, TValue> item) => list.Contains(item);
 
+        /// <summary>
+        /// Determines whether the <see cref="OrderedDictionary{TKey, TValue}"/> contains the specified key.
+        /// </summary>
+        /// <param name="key">The key to locate in the <see cref="OrderedDictionary{TKey, TValue}"/>.</param>
+        /// <returns><see langword="true"/> if the <see cref="OrderedDictionary{TKey, TValue}"/> contains an element with the specified key; otherwise, <see langword="false"/>.</returns>
         public bool ContainsKey(TKey key) => dictionary.ContainsKey(key);
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => list.CopyTo(array, arrayIndex);
