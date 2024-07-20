@@ -1,6 +1,13 @@
 ﻿namespace Asjc.Collections.Extended
 {
-    public class UniqueTypeList : UniqueTypeList<object> { }
+    public class UniqueTypeList : UniqueTypeList<object>
+    {
+        public UniqueTypeList() : base() { }
+
+        public UniqueTypeList(IEnumerable<KeyValuePair<Type, object>> pairs) : base(pairs) { }
+
+        public UniqueTypeList(IEnumerable<object> values) : base(values) { }
+    }
 
     public class UniqueTypeList<TBase> : KeyedList<Type, TBase>
     {

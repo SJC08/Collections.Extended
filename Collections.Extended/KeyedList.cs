@@ -4,6 +4,12 @@ namespace Asjc.Collections.Extended
 {
     public class KeyedList<TValue> : KeyedList<object, TValue>
     {
+        public KeyedList() : base() { }
+
+        public KeyedList(IEnumerable<KeyValuePair<object, TValue>> pairs) : base(pairs) { }
+
+        public KeyedList(IEnumerable<TValue> values) : base(values) { }
+
         public KeyedList(Func<TValue, object> keySelector) : base(keySelector) { }
 
         public KeyedList(Func<TValue, object> keySelector, IEnumerable<KeyValuePair<object, TValue>> pairs) : base(keySelector, pairs) { }
@@ -13,6 +19,23 @@ namespace Asjc.Collections.Extended
 
     public class KeyedList<TKey, TValue> : OrderedDictionary<TKey, TValue>, IKeyedList<TKey, TValue> where TKey : notnull
     {
+        public KeyedList()
+        {
+            KeySelector = _ => throw new NotSupportedException();
+        }
+
+        public KeyedList(IEnumerable<KeyValuePair<TKey, TValue>> pairs) : base(pairs)
+        {
+            KeySelector = _ => throw new NotSupportedException();
+        }
+
+        public KeyedList(IEnumerable<TValue> values)
+        {
+            KeySelector = _ => throw new NotSupportedException();
+            foreach (var item in values)
+                Add(item);
+        }
+
         public KeyedList(Func<TValue, TKey> keySelector)
         {
             KeySelector = keySelector;
@@ -36,7 +59,7 @@ namespace Asjc.Collections.Extended
             set => base[index] = new KeyValuePair<TKey, TValue>(KeySelector(value), value);
         }
 
-        public Func<TValue, TKey> KeySelector { get; }
+        public Func<TValue, TKey> KeySelector { get; set; }
 
         public void Add(TValue item) => Add(KeySelector(item), item);
 
