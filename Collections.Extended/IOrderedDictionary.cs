@@ -1,5 +1,23 @@
-﻿namespace Asjc.Collections.Extended
+﻿using System.Collections;
+
+namespace Asjc.Collections.Extended
 {
+    /// <summary>
+    /// Represents a non-generic collection of key/value pairs that are ordered.
+    /// </summary>
+    public interface IOrderedDictionary : IDictionary, IList
+    {
+        /// <summary>
+        /// Gets an <see cref="IList"/> containing the ordered keys of the <see cref="IOrderedDictionary"/>.
+        /// </summary>
+        IList OrderedKeys { get; }
+
+        /// <summary>
+        /// Gets an <see cref="IList"/> containing the ordered values of the <see cref="IOrderedDictionary"/>.
+        /// </summary>
+        IList OrderedValues { get; }
+    }
+
     /// <summary>
     /// Represents a generic collection of key/value pairs that are ordered.
     /// </summary>
