@@ -59,6 +59,7 @@ namespace Asjc.Collections.Extended
             set => base[index] = new KeyValuePair<TKey, TValue>(KeySelector(value), value);
         }
 
+        /// <inheritdoc/>
         public Func<TValue, TKey> KeySelector { get; set; }
 
         public void Add(TValue item) => Add(KeySelector(item), item);
@@ -75,6 +76,12 @@ namespace Asjc.Collections.Extended
 
         public bool Remove(TValue item) => Remove(base[IndexOf(item)]);
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the <see cref="KeyedList{TKey, TValue}"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="List{T}.Enumerator"/> for the <see cref="KeyedList{TKey, TValue}"/>.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>

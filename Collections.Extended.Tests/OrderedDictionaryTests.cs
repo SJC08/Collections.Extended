@@ -132,5 +132,25 @@ namespace Asjc.Collections.Extended.Tests
                 Assert.ThrowsException<ArgumentOutOfRangeException>(a);
             });
         }
+
+        [TestMethod]
+        public void ConversionOperator1()
+        {
+            RunTest(od =>
+            {
+                Dictionary<string, string> dictionary = od;
+                dictionary.Clear();
+            });
+        }
+
+        [TestMethod]
+        public void ConversionOperator2()
+        {
+            RunTest(od =>
+            {
+                List<KeyValuePair<string, string>> list = od;
+                list.Clear();
+            });
+        }
     }
 }
