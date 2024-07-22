@@ -21,10 +21,24 @@ namespace Asjc.Collections.Extended.Tests
         }
 
         [TestMethod]
-        public void Indexer1() => RunTest(od => Assert.AreEqual(od[0], new("A", "AAA")));
+        public void Indexer1() => RunTest(od => Assert.AreEqual(od["A"], "AAA"));
 
         [TestMethod]
-        public void Indexer1_KeyNotMatched()
+        public void Indexer1_KeyNotContained()
+        {
+            RunTest(od =>
+            {
+                Assert.ThrowsException<KeyNotFoundException>(() => _ = od["D"]);
+                od["D"] = "DDD";
+                Assert.AreEqual(new("D", "DDD"), od[3]);
+            });
+        }
+
+        [TestMethod]
+        public void Indexer2() => RunTest(od => Assert.AreEqual(od[0], new("A", "AAA")));
+
+        [TestMethod]
+        public void Indexer2_KeyNotMatched()
         {
             RunTest(od =>
             {
@@ -36,7 +50,7 @@ namespace Asjc.Collections.Extended.Tests
         }
 
         [TestMethod]
-        public void Indexer1_DuplicateKey()
+        public void Indexer2_DuplicateKey()
         {
             RunTest(od =>
             {
@@ -44,9 +58,6 @@ namespace Asjc.Collections.Extended.Tests
                 Assert.ThrowsException<ArgumentException>(a);
             });
         }
-
-        [TestMethod]
-        public void Indexer2() => RunTest(od => Assert.AreEqual(od["A"], "AAA"));
 
         [TestMethod]
         public void Add1_DuplicateKey_ThrowsArgumentException()
@@ -65,6 +76,16 @@ namespace Asjc.Collections.Extended.Tests
             {
                 void a() => od.Add(new("A", "ZZZ"));
                 Assert.ThrowsException<ArgumentException>(a);
+            });
+        }
+
+        [TestMethod]
+        public void Clear()
+        {
+            RunTest(od =>
+            {
+                od.Clear();
+                Assert.AreEqual(0, od.Count);
             });
         }
 
