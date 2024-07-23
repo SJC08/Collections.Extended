@@ -294,11 +294,17 @@ namespace Asjc.Collections.Extended
         /// <summary>
         /// Converts the specified <see cref="OrderedDictionary{TKey, TValue}"/> to a <see cref="Dictionary{TKey, TValue}"/>.
         /// </summary>
+        /// <remarks>
+        /// Changes to the return value are not reflected in the original dictionary.
+        /// </remarks>
         public static implicit operator Dictionary<TKey, TValue>(OrderedDictionary<TKey, TValue> od) => new(od.dictionary);
 
         /// <summary>
         /// Converts the specified <see cref="OrderedDictionary{TKey, TValue}"/> to a <see cref="List{T}"/>.
         /// </summary>
+        /// <remarks>
+        /// Changes to the return value are not reflected in the original dictionary.
+        /// </remarks>
         public static implicit operator List<KeyValuePair<TKey, TValue>>(OrderedDictionary<TKey, TValue> od) => new(od.list);
     }
 }

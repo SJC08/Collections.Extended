@@ -2,6 +2,10 @@
 
 namespace Asjc.Collections.Extended
 {
+    /// <inheritdoc/>
+    /// <remarks>
+    /// This class inherits from <see cref="KeyedList{TKey, TValue}"/>.
+    /// </remarks>
     public class KeyedList<TValue> : KeyedList<object, TValue>
     {
         public KeyedList() : base() { }
@@ -17,6 +21,7 @@ namespace Asjc.Collections.Extended
         public KeyedList(Func<TValue, object> keySelector, IEnumerable<TValue> values) : base(keySelector, values) { }
     }
 
+    /// <inheritdoc cref="IKeyedList{TKey, TValue}"/>
     public class KeyedList<TKey, TValue> : OrderedDictionary<TKey, TValue>, IKeyedList<TKey, TValue> where TKey : notnull
     {
         public KeyedList()
@@ -87,6 +92,9 @@ namespace Asjc.Collections.Extended
         /// <summary>
         /// Converts the specified <see cref="KeyedList{TKey, TValue}"/> to a <see cref="List{T}"/>.
         /// </summary>
+        /// <remarks>
+        /// Changes to the return value are not reflected in the original dictionary.
+        /// </remarks>
         public static implicit operator List<TValue>(KeyedList<TKey, TValue> kl) => kl.OrderedValues;
     }
 }
