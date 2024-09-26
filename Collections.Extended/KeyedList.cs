@@ -79,7 +79,16 @@ namespace Asjc.Collections.Extended
 
         public void Insert(int index, TValue item) => Insert(index, new KeyValuePair<TKey, TValue>(KeySelector(item), item));
 
-        public bool Remove(TValue item) => Remove(base[IndexOf(item)]);
+        public bool Remove(TValue item)
+        {
+            int index = IndexOf(item);
+            if (index >= 0)
+            {
+                RemoveAt(index);
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Returns an enumerator that iterates through the <see cref="KeyedList{TKey, TValue}"/>.

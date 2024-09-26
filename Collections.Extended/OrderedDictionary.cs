@@ -5,20 +5,35 @@ namespace Asjc.Collections.Extended
     /// <inheritdoc cref="IOrderedDictionary{TKey, TValue}"/>
     public class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue>, IOrderedDictionary where TKey : notnull
     {
-        private readonly Dictionary<TKey, TValue> dictionary = [];
-        private readonly List<KeyValuePair<TKey, TValue>> list = [];
+        private readonly Dictionary<TKey, TValue> dictionary;
+        private readonly List<KeyValuePair<TKey, TValue>> list;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class.
         /// </summary>
-        public OrderedDictionary() { }
+        public OrderedDictionary()
+        {
+            dictionary = [];
+            list = [];
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class that has the specified initial capacity.
+        /// </summary>
+        public OrderedDictionary(int capacity)
+        {
+            dictionary = new(capacity);
+            list = new(capacity);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class that contains elements copied from the specified <see cref="IEnumerable{T}"/>.
         /// </summary>
-        public OrderedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> pairs)
+        public OrderedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> collection)
         {
-            foreach (var item in pairs)
+            dictionary = [];
+            list = [];
+            foreach (var item in collection)
                 Add(item);
         }
 
